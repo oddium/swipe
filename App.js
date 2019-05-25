@@ -16,7 +16,7 @@ const DATA = [
 
 class App extends React.Component {
 
-    renderCard(item) {
+    static renderCard(item) {
         return (
             <Card
                 key={item.id}
@@ -35,12 +35,29 @@ class App extends React.Component {
         )
     }
 
+    static renderNoMoreCards() {
+        return (
+            <Card
+                title={'All Done!'}
+            >
+                <Text style={{marginBottom: 10}}>
+                    There's no more content here!
+                </Text>
+                <Button
+                    backgroundColor={'#03A9F4'}
+                    title={'Get More!'}
+                />
+            </Card>
+        );
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Deck
                     data={DATA}
-                    renderCard={this.renderCard}
+                    renderCard={App.renderCard}
+                    renderNoMoreCards={App.renderNoMoreCards}
                 />
             </View>
         );
@@ -52,7 +69,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         marginTop: Platform.OS === 'android' ? 0 : 20,
-    },
+    }
 });
 
 export default App;
