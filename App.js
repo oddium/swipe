@@ -16,7 +16,7 @@ const DATA = [
 
 class App extends React.Component {
 
-    static renderCard(item) {
+    renderCard(item) {
         return (
             <Card
                 key={item.id}
@@ -35,7 +35,7 @@ class App extends React.Component {
         )
     }
 
-    static renderNoMoreCards() {
+    renderNoMoreCards() {
         return (
             <Card
                 title={'All Done!'}
@@ -56,8 +56,8 @@ class App extends React.Component {
             <View style={styles.container}>
                 <Deck
                     data={DATA}
-                    renderCard={App.renderCard}
-                    renderNoMoreCards={App.renderNoMoreCards}
+                    renderCard={this.renderCard}
+                    renderNoMoreCards={this.renderNoMoreCards}
                 />
             </View>
         );

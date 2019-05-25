@@ -88,7 +88,7 @@ class Deck extends Component {
     renderCards() {
 
         if (this.state.index >= this.props.data.length) {
-            return App.renderNoMoreCards();
+            return this.props.renderNoMoreCards();
         }
 
         return this.props.data.map((item, i) => {
@@ -102,7 +102,7 @@ class Deck extends Component {
                         style={[this.getCardStyle(), styles.cardStyle, {zIndex: i * -1}]}
                         {...this.state.panResponder.panHandlers}
                     >
-                        {App.renderCard(item)}
+                        {this.props.renderCard(item)}
                     </Animated.View>
                 )
             }
@@ -111,7 +111,7 @@ class Deck extends Component {
                 <Animated.View
                     key={item.id}
                     style={[styles.cardStyle, {top: 10 * (i - this.state.index)}, {zIndex: i * -1}]}>
-                    {App.renderCard(item)}
+                    {this.props.renderCard(item)}
                 </Animated.View>
             );
         }).reverse();
