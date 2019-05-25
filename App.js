@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Platform} from 'react-native';
+import {StyleSheet, View, Platform, Text} from 'react-native';
+import {Card, Button} from 'react-native-elements';
 import Deck from './src/Deck';
 
 const DATA = [
@@ -13,11 +14,34 @@ const DATA = [
     {id: 8, text: 'Card #8', uri: 'http://imgs.abduzeedo.com/files/paul0v2/unsplash/unsplash-01.jpg'},
 ];
 
-export default class App extends React.Component {
+class App extends React.Component {
+
+    renderCard(item) {
+        return (
+            <Card
+                key={item.id}
+                title={item.text}
+                image={{uri: item.uri}}
+            >
+                <Text style={{marginBottom: 10}}>
+                    I can customize the card further.
+                </Text>
+                <Button
+                    icon={{name: 'code'}}
+                    backgroundColor={"#03A9F4"}
+                    title={"View Now!"}
+                />
+            </Card>
+        )
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <Deck/>
+                <Deck
+                    data={DATA}
+                    renderCard={this.renderCard}
+                />
             </View>
         );
     }
@@ -30,3 +54,5 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'android' ? 0 : 20,
     },
 });
+
+export default App;
