@@ -5,13 +5,43 @@ class Deck extends Component {
     constructor(props) {
         super(props);
 
-        const panResponder = PanResponder.create({});
+        const position = new Animated.ValueXY();
 
-        this.state = {panResponder};//this.panResponder = panResponder;
+        const panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderMove: (event, gesture) => {
+                position.setValue({x: gesture.dx, y: gesture.dy});
+            },
+            onPanRespnderRelease: () => {
+
+            }
+        });
+
+        this.state = {panResponder, position};//this.panResponder = panResponder; this.position = position
     };
 
+    getCardStyle() {
+        return {
+            ...this.state.position.getLayout(),
+            transform: [{rotate: '45deg'}]
+        }
+    }
+
     renderCards() {
-        return this.props.data.map(item => {
+        return this.props.data.map((item, index) => {
+
+            if (index === 0) {
+                return (
+                    <Animated.View
+                        key={item.id}
+                        style={this.getCardStyle()}
+                        {...this.state.panResponder.panHandlers}
+                    >
+                        {this.props.renderCard(item)}
+                    </Animated.View>
+                )
+            }
+
             return this.props.renderCard(item);
         });
     }
